@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/dapper-stored-procedures-app/.vs/dapper-stored-procedures-app/v16
+/dapper-stored-procedures-app/dapper-stored-procedures/obj
+/dapper-stored-procedures-app/dapper-stored-procedures/Properties
+/dapper-stored-procedures-app/dapper-stored-procedures.entities/obj
+/dapper-stored-procedures-app/dapper-stored-procedures/dapper-stored-procedures.csproj.user
