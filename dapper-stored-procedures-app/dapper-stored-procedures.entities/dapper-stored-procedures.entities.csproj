@@ -1,8 +1,0 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>dapper_stored_procedures.entities</RootNamespace>
-  </PropertyGroup>
-
-</Project>
