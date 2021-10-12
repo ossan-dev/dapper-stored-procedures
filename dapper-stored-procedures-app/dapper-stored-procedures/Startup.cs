@@ -1,3 +1,4 @@
+using dapper_stored_procedures.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,6 +33,8 @@ namespace dapper_stored_procedures
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "dapper_stored_procedures", Version = "v1" });
             });
+
+            services.AddTransient<IPurchaseOrderService, PurchaseOrderService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
