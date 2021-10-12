@@ -19,8 +19,14 @@ namespace dapper_stored_procedures.Services
 
         public async Task<IEnumerable<SaleOrder>> GetSaleOrders(int customerId)
         {
-            var purchaseOrders = await _connection.QueryAsync<SaleOrder>("usp.get_sale_order_by_customer_id", new { customerId = customerId }, commandType: CommandType.StoredProcedure);
-            return purchaseOrders;
+            var saleOrders = await _connection.QueryAsync<SaleOrder>("usp.get_sale_order_by_customer_id", new { customerId = customerId }, commandType: CommandType.StoredProcedure);
+            return saleOrders;
+        }
+        
+        public async Task<IEnumerable<SaleOrder>> GetSaleOrdersPaged(int numPage, int itemsPerPage)
+        {
+            var saleOrders = await _connection.QueryAsync<SaleOrder>("usp.get_sale_order_simple_paging", new { offset = (numPage-1) * itemsPerPage, take = itemsPerPage}, commandType: CommandType.StoredProcedure);
+            return saleOrders;
         }
     }
 }
