@@ -24,5 +24,12 @@ namespace dapper_stored_procedures.Controllers
         {
             return Ok(await _purchaseOrderService.GetPurchaseOrders(supplierId));
         }
+
+        [HttpGet]
+        [Route("simple-paging")]
+        public async Task<IActionResult> GetBySupplierId([FromQuery] int pageNumber = 1, [FromQuery] int itemsPerPage = 10)
+        {
+            return Ok(await _purchaseOrderService.GetPurchaseOrdersPaged(pageNumber, itemsPerPage));
+        }
     }
 }

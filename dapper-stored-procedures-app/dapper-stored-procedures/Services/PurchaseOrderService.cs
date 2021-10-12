@@ -22,5 +22,11 @@ namespace dapper_stored_procedures.Services
             var purchaseOrders = await _connection.GetListAsync<PurchaseOrder>("where SupplierID = @SupplierID", new { SupplierID = supplierId });
             return purchaseOrders;
         }
+
+        public async Task<IEnumerable<PurchaseOrder>> GetPurchaseOrdersPaged(int numPage, int itemsPerPage)
+        {
+            var purchaseOrders = await _connection.GetListPagedAsync<PurchaseOrder>(pageNumber: numPage, rowsPerPage: itemsPerPage, conditions: "", orderby: "");
+            return purchaseOrders;
+        }
     }
 }
