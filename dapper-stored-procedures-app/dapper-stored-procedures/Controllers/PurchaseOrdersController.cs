@@ -1,4 +1,5 @@
-﻿using dapper_stored_procedures.Services;
+﻿using dapper_stored_procedures.ApiModels;
+using dapper_stored_procedures.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -27,9 +28,16 @@ namespace dapper_stored_procedures.Controllers
 
         [HttpGet]
         [Route("simple-paging")]
-        public async Task<IActionResult> GetBySupplierId([FromQuery] int pageNumber = 1, [FromQuery] int itemsPerPage = 10)
+        public async Task<IActionResult> GetPaged([FromQuery] int pageNumber = 1, [FromQuery] int itemsPerPage = 10)
         {
             return Ok(await _purchaseOrderService.GetPurchaseOrdersPaged(pageNumber, itemsPerPage));
+        }
+        
+        [HttpPost]
+        [Route("complex-paging")]
+        public async Task<IActionResult> GetComplexPaged(ComplexPaging complexPaging)
+        {
+            return Ok(await _purchaseOrderService.GetPurchaseOrdersPagedAndFiltered(complexPaging));
         }
     }
 }
