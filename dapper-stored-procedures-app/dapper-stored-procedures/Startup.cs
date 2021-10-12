@@ -38,6 +38,7 @@ namespace dapper_stored_procedures
 
             services.AddTransient<IDbConnection>(_ => new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=wwi;Integrated Security=True;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
             services.AddTransient<IPurchaseOrderService, PurchaseOrderService>();
+            services.AddTransient<ISaleOrderService, SaleOrderService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
