@@ -20,9 +20,9 @@ namespace dapper_stored_procedures.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetBySupplierId([FromQuery] int supplierId)
+        public async Task<IActionResult> GetBySupplierId([FromQuery] int supplierId)
         {
-            return Ok(_purchaseOrderService.GetPurchaseOrders(supplierId));
+            return Ok(await _purchaseOrderService.GetPurchaseOrders(supplierId));
         }
     }
 }

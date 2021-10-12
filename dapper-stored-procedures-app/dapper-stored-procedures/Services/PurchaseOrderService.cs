@@ -16,10 +16,10 @@ namespace dapper_stored_procedures.Services
 
         }
 
-        public IEnumerable<PurchaseOrder> GetPurchaseOrders(int supplierId)
+        public async Task<IEnumerable<PurchaseOrder>> GetPurchaseOrders(int supplierId)
         {
             using IDbConnection connection = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=wwi;Integrated Security=True;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
-            var purchaseOrders = connection.GetList<PurchaseOrder>("where SupplierID = @SupplierID", new { SupplierID = supplierId });
+            var purchaseOrders = await connection.GetListAsync<PurchaseOrder>("where SupplierID = @SupplierID", new { SupplierID = supplierId });
             return purchaseOrders;
         }
     }
