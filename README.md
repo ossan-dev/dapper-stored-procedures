@@ -8,5 +8,5 @@ The script to run is:
 `.\SqlPackage.exe /Action:Import /SourceFile:"C:\Users\ivan.pesenti\Downloads\WideWorldImporters-Standard.bacpac" /TargetConnectionString:"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=wwi;Integrated Security=true;"`  
 
 ## branches
-1. master: implementation with [Dapper.SimpleCRUD](https://dapper-tutorial.net/dapper-simplecrud)
-1. implementation with stored procedures
+1. PurchaseOrdersController: implementation with [Dapper.SimpleCRUD](https://dapper-tutorial.net/dapper-simplecrud)
+1. SaleOrdersController: implementation with stored procedures
