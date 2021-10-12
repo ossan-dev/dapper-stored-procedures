@@ -10,6 +10,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -34,6 +36,7 @@ namespace dapper_stored_procedures
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "dapper_stored_procedures", Version = "v1" });
             });
 
+            services.AddTransient<IDbConnection>(_ => new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=wwi;Integrated Security=True;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
             services.AddTransient<IPurchaseOrderService, PurchaseOrderService>();
         }
 
