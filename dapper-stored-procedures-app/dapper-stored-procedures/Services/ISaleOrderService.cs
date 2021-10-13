@@ -1,4 +1,5 @@
-﻿using dapper_stored_procedures.Models;
+﻿using dapper_stored_procedures.ApiModels;
+using dapper_stored_procedures.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,5 +9,6 @@ namespace dapper_stored_procedures.Services
     {
         Task<IEnumerable<SaleOrder>> GetSaleOrders(int customerId);
         Task<IEnumerable<SaleOrder>> GetSaleOrdersPaged(int numPage, int itemsPerPage);
+        Task<IEnumerable<SaleOrder>> GetSaleOrdersPagedAndFiltered(ComplexPaging complexPaging);
     }
 }
