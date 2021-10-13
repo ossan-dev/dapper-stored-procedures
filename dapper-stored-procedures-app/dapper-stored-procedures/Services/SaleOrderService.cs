@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using dapper_stored_procedures.ApiModels;
 using dapper_stored_procedures.Models;
+using dapper_stored_procedures.Predicates;
 using dapper_stored_procedures.Utils;
 using System;
 using System.Collections.Generic;
@@ -46,7 +47,32 @@ namespace dapper_stored_procedures.Services
             string predicate = string.Empty;
             if (complexPaging.FilterPredicates.Count() > 0)
             {
-                predicate = $" WHERE{string.Join(' ', complexPaging.FilterPredicates.Select(f => $"{f.LogicalOperator} {f.Field} {f.RelationalOperator} @{f.Field}"))}";
+                var filtersPredicates = new List<FilterPredicate>();
+                foreach (var currFilter in complexPaging.FilterPredicates)
+                {
+                    if (!filtersPredicates.Any(f => f.Field.Contains(currFilter.Field)))
+                    {
+                        filtersPredicates.Add(currFilter);
+                    }
+                    else
+                    {
+                        // get max num inserted up to this moment
+                        var lastFilter = filtersPredicates.Where(f => f.Field.Contains(currFilter.Field)).LastOrDefault();
+                        if (lastFilter.Field.IndexOf('_') == -1)
+                        {
+                            currFilter.Field = $"{currFilter.Field}_1";
+                        }
+                        else
+                        {
+                            currFilter.Field = $"{currFilter.Field}_{Int32.Parse(lastFilter.Field.Split('_')[1]) + 1}";
+                        }
+                        filtersPredicates.Add(currFilter);
+                    }
+                }
+
+                complexPaging.FilterPredicates = filtersPredicates;
+
+                predicate = $" WHERE{string.Join(' ', complexPaging.FilterPredicates.Select(f => $"{f.LogicalOperator} {f.Field.Split('_')[0]} {f.RelationalOperator} @{f.Field}"))}";
 
                 foreach (var filter in complexPaging.FilterPredicates)
                 {
